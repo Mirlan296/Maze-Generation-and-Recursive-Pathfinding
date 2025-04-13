@@ -1,0 +1,153 @@
+import java.util.Random;
+import java.util.Scanner;
+
+public class MazeSolver {
+    private static final char WALL = '#';
+    private static final char PATH = ' ';
+    private static final char SOLUTION = '.';
+    private static final char START = 'S';
+    private static final char EXIT = 'E';
+    
+    private char[][] maze;
+    private int width;
+    private int height;
+    private int[] start = {1, 1};
+    private int[] exit;
+    private Random random = new Random();
+    
+    // Направления движения: вверх, вправо, вниз, влево
+    private int[][] directions = {{0, -1}, {1, 0}, {0, 1}, {-1, 0}};
+    
+    public MazeSolver(int width, int height) {
+        // Установка минимального размера 10x10
+        this.width = Math.max(width, 10);
+        this.height = Math.max(height, 10);
+        this.exit = new int[]{this.width - 2, this.height - 2};
+        this.maze = new char[this.height][this.width];
+        initializeMaze();
+    }
+    
+    private void initializeMaze() {
+        // Заполняем весь лабиринт стенами
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                maze[y][x] = WALL;
+            }
+        }
+        
+        // Устанавливаем начальную и конечную точки как проходы
+        maze[start[1]][start[0]] = PATH;
+        maze[exit[1]][exit[0]] = PATH;
+    }
+    
+    public void generateMaze() {
+        generateMazeRecursive(start[0], start[1]);
+    }
+    
+    private void generateMazeRecursive(int x, int y) {
+        // Случайный порядок направлений
+        int[] dirs = {0, 1, 2, 3};
+        shuffleArray(dirs);
+        
+        // Идем в каждом направлении
+        for (int dir : dirs) {
+            int nx = x + directions[dir][0] * 2;
+            int ny = y + directions[dir][1] * 2;
+            
+            if (isInBounds(nx, ny) && maze[ny][nx] == WALL) {
+                // Прорываем стену между текущей и следующей клеткой
+                maze[y + directions[dir][1]][x + directions[dir][0]] = PATH;
+                maze[ny][nx] = PATH;
+                generateMazeRecursive(nx, ny);
+            }
+        }
+    }
+    
+    public boolean solveMaze() {
+        boolean[][] visited = new boolean[height][width];
+        return solveMazeRecursive(start[0], start[1], visited);
+    }
+    
+    private boolean solveMazeRecursive(int x, int y, boolean[][] visited) {
+        // Базовые случаи
+        if (!isInBounds(x, y) || maze[y][x] == WALL || visited[y][x]) {
+            return false;
+        }
+        
+        // Помечаем текущую клетку как посещенную
+        visited[y][x] = true;
+        
+        // Если достигли выхода
+        if (x == exit[0] && y == exit[1]) {
+            maze[y][x] = EXIT;
+            return true;
+        }
+        
+        // Проверяем все соседние клетки
+        for (int[] dir : directions) {
+            int nx = x + dir[0];
+            int ny = y + dir[1];
+            
+            if (solveMazeRecursive(nx, ny, visited)) {
+                // Помечаем путь решения, кроме начальной точки
+                if (!(x == start[0] && y == start[1])) {
+                    maze[y][x] = SOLUTION;
+                }
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    private boolean isInBounds(int x, int y) {
+        return x >= 0 && x < width && y >= 0 && y < height;
+    }
+    
+    private void shuffleArray(int[] array) {
+        for (int i = array.length - 1; i > 0; i--) {
+            int index = random.nextInt(i + 1);
+            int temp = array[index];
+            array[index] = array[i];
+            array[i] = temp;
+        }
+    }
+    
+    public void printMaze() {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                if (x == start[0] && y == start[1]) {
+                    System.out.print(START);
+                } else {
+                    System.out.print(maze[y][x]);
+                }
+            }
+            System.out.println();
+        }
+    }
+    
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.print("Введите ширину лабиринта (минимум 10): ");
+        int width = scanner.nextInt();
+        
+        System.out.print("Введите высоту лабиринта (минимум 10): ");
+        int height = scanner.nextInt();
+        
+        MazeSolver mazeSolver = new MazeSolver(width, height);
+        mazeSolver.generateMaze();
+        
+        System.out.println("\nСгенерированный лабиринт:");
+        mazeSolver.printMaze();
+        
+        if (mazeSolver.solveMaze()) {
+            System.out.println("\nЛабиринт с решением:");
+            mazeSolver.printMaze();
+        } else {
+            System.out.println("\nРешение не найдено!");
+        }
+        
+        scanner.close();
+    }
+}
