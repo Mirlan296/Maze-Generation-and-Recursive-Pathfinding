@@ -1,4 +1,4 @@
- 3) Конструктор
+ 
 
 (public MazeSolver(int width, int height) {
     this.width = Math.max(width, 10);
