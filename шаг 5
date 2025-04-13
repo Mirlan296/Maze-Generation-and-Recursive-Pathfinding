@@ -1,0 +1,28 @@
+5. Генерация лабиринта
+ 
+public void generateMaze() {
+    generateMazeRecursive(start[0], start[1]);
+}
+
+private void generateMazeRecursive(int x, int y) {
+    int[] dirs = {0, 1, 2, 3};
+    shuffleArray(dirs);
+    
+    for (int dir : dirs) {
+        int nx = x + directions[dir][0] * 2;
+        int ny = y + directions[dir][1] * 2;
+        
+        if (isInBounds(nx, ny) && maze[ny][nx] == WALL) {
+            maze[y + directions[dir][1]][x + directions[dir][0]] = PATH;
+            maze[ny][nx] = PATH;
+            generateMazeRecursive(nx, ny);
+        }
+    }
+}
+
+Перемешивает направления для случайности
+Для каждого направления:
+Вычисляет новую позицию (через 2 клетки)
+Если клетка валидна и является стеной:
+"Прорывает" стену между текущей и новой клеткой
+Рекурсивно продолжает из новой позиции
