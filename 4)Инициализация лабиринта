@@ -1,4 +1,3 @@
-Инициализация лабиринта
 
 
 private void initializeMaze() {
