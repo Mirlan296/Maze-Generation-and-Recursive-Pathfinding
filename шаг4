@@ -1,0 +1,16 @@
+Инициализация лабиринта
+
+
+private void initializeMaze() {
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            maze[y][x] = WALL;
+        }
+    }
+    maze[start[1]][start[0]] = PATH;
+    maze[exit[1]][exit[0]] = PATH;
+}
+
+
+Заполняет весь лабиринт стенами (#)
+Устанавливает начальную и конечную точки как проходы
