@@ -1,0 +1,41 @@
+6. Поиск решения
+
+public boolean solveMaze() {
+    boolean[][] visited = new boolean[height][width];
+    return solveMazeRecursive(start[0], start[1], visited);
+}
+
+private boolean solveMazeRecursive(int x, int y, boolean[][] visited) {
+    if (!isInBounds(x, y) || maze[y][x] == WALL || visited[y][x]) {
+        return false;
+    }
+    
+    visited[y][x] = true;
+    
+    if (x == exit[0] && y == exit[1]) {
+        maze[y][x] = EXIT;
+        return true;
+    }
+    
+    for (int[] dir : directions) {
+        int nx = x + dir[0];
+        int ny = y + dir[1];
+        
+        if (solveMazeRecursive(nx, ny, visited)) {
+            if (!(x == start[0] && y == start[1])) {
+                maze[y][x] = SOLUTION;
+            }
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+Создает массив для отметки посещенных клеток
+Рекурсивно проверяет:
+Выход за границы или стену → возврат false
+Достижение выхода → отмечает его и возвращает true
+Для каждого направления:
+Рекурсивно пробует найти путь
+Если путь найден, отмечает текущую клетку как часть решения
