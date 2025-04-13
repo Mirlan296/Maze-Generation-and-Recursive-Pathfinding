@@ -1,4 +1,4 @@
-1. Класс и константы
+
 
 (public class MazeSolver {
     private static final char WALL = '#';
