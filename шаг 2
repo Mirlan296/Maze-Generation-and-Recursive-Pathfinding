@@ -1,0 +1,16 @@
+2. Поля класса
+
+(private char[][] maze;
+private int width;
+private int height;
+private int[] start = {1, 1};
+private int[] exit;
+private Random random = new Random();
+private int[][] directions = {{0, -1}, {1, 0}, {0, 1}, {-1, 0}};
+maze - двумерный массив для хранения лабиринта)
+
+
+
+width/height - размеры лабиринта
+start/exit - координаты начала и выхода
+directions - возможные направления движения (вверх, вправо, вниз, влево)
