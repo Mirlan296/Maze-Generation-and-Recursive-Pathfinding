@@ -1,0 +1,43 @@
+9. Главный метод
+
+public static void main(String[] args) {
+    Scanner scanner = new Scanner(System.in);
+    
+    System.out.print("Введите ширину лабиринта (минимум 10): ");
+    int width = scanner.nextInt();
+    
+    System.out.print("Введите высоту лабиринта (минимум 10): ");
+    int height = scanner.nextInt();
+    
+    MazeSolver mazeSolver = new MazeSolver(width, height);
+    mazeSolver.generateMaze();
+    
+    System.out.println("\nСгенерированный лабиринт:");
+    mazeSolver.printMaze();
+    
+    if (mazeSolver.solveMaze()) {
+        System.out.println("\nЛабиринт с решением:");
+        mazeSolver.printMaze();
+    } else {
+        System.out.println("\nРешение не найдено!");
+    }
+    
+    scanner.close();
+}
+Запрашивает у пользователя размеры лабиринта
+
+Создает экземпляр MazeSolver
+
+Генерирует и выводит лабиринт
+
+Пытается найти и показать решение
+
+Каждый шаг кода следует принципам:
+
+Рекурсия для генерации и решения
+
+Четкое разделение ответственности методов
+
+Валидация входных данных
+
+Наглядное представление результатов
