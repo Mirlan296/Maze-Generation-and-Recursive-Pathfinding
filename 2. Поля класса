@@ -1,4 +1,4 @@
-2. Поля класса
+
 
 (private char[][] maze;
 private int width;
