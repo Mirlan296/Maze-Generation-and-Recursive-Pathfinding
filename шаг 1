@@ -1,0 +1,17 @@
+1. Класс и константы
+
+(public class MazeSolver {
+    private static final char WALL = '#';
+    private static final char PATH = ' ';
+    private static final char SOLUTION = '.';
+    private static final char START = 'S';
+    private static final char EXIT = 'E';)
+
+
+WALL - символ стены
+
+PATH - символ прохода
+
+SOLUTION - символ пути решения
+
+START/EXIT - начальная/конечная точки
