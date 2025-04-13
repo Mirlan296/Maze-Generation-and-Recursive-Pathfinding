@@ -1,0 +1,14 @@
+ 3) Конструктор
+
+(public MazeSolver(int width, int height) {
+    this.width = Math.max(width, 10);
+    this.height = Math.max(height, 10);
+    this.exit = new int[]{this.width - 2, this.height - 2};
+    this.maze = new char[this.height][this.width];
+    initializeMaze();
+}
+)
+
+Устанавливает минимальный размер 10x10
+Позиция выхода вычисляется автоматически
+Вызывает метод инициализации лабиринта
