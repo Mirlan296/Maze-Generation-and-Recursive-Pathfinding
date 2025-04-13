@@ -1,0 +1,16 @@
+
+
+public void printMaze() {
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            if (x == start[0] && y == start[1]) {
+                System.out.print(START);
+            } else {
+                System.out.print(maze[y][x]);
+            }
+        }
+        System.out.println();
+    }
+}
+Выводит лабиринт в консоль
+Особенно отмечает начальную точку символом 'S'
