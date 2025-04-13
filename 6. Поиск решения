@@ -1,4 +1,4 @@
-6. Поиск решения
+
 
 public boolean solveMaze() {
     boolean[][] visited = new boolean[height][width];
