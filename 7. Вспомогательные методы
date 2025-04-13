@@ -1,0 +1,18 @@
+7. Вспомогательные методы
+java
+Copy
+private boolean isInBounds(int x, int y) {
+    return x >= 0 && x < width && y >= 0 && y < height;
+}
+
+private void shuffleArray(int[] array) {
+    for (int i = array.length - 1; i > 0; i--) {
+        int index = random.nextInt(i + 1);
+        int temp = array[index];
+        array[index] = array[i];
+        array[i] = temp;
+    }
+}
+
+isInBounds - проверяет, находится ли клетка в пределах лабиринта
+shuffleArray - перемешивает массив направлений для случайности генерации
